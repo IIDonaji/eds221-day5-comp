@@ -11,10 +11,11 @@ First, intall necessary packages
 #install.packages("testthat")
 #install.packages("devtools")
 #install.packages("remotes")
-
+rm(list = ls())
 library(testthat)
 library(devtools)
 library(remotes)
+
 ```
 Write a function to practice unit tests.
 
@@ -26,7 +27,9 @@ We would expect:
 - the first value should be smaller than the second value
 ```{r}
 mean_range <- function(df) {
+  # reurnt the mean values of chea column 
   col_means <- apply(X = df, MARGIN = 2, FUN = mean, na.rm = TRUE)
+  # finds minimum and maximum values
   col_mean_max <- max(col_means)
   col_mean_min <- min(col_means)
   
@@ -36,10 +39,29 @@ mean_range <- function(df) {
 
 mean_range(df = mtcars)
 ```
-Write some unit tests!
+Write some unit tests! for your function
 ```{r}
-#| include: false
+##| include: false <- hid unit test code
+
 # Test that the output is of length 2
 expect_length(mean_range(df = mtcars), 2)
+
+# Test that first value is less than second value
+expect_true(mean_range(mtcars)[1] < mean_range(mtcars)[2])
+
+# can do this as conditional 
+#if (mean_range(mtcars)[1] < mean_range(mtcars)[2]) {
+  #stop()
+#}
+```
+
+## Practice sourcing functions
+```{r}
+# Source our food cart functions
+source(here::here("src", "food_cart_functions.R"))
+
+# Testing running function
+name_cart(food = "strawberry", animal = "marmot")
+
 ```
 
