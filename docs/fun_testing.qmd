@@ -7,6 +7,7 @@ editor: visual
 ## Unit testing with the `testtthat` package
 
 First, intall necessary packages
+
 ```{r}
 #install.packages("testthat")
 #install.packages("devtools")
@@ -17,14 +18,13 @@ library(devtools)
 library(remotes)
 
 ```
+
 Write a function to practice unit tests.
 
 This function is going to find the mean value of each column, and then return the lowest and highest mean value calculated ( in that order)
 
-We would expect:
-- the output to be numeric
-- output should be a vector of length 2
-- the first value should be smaller than the second value
+We would expect: - the output to be numeric - output should be a vector of length 2 - the first value should be smaller than the second value
+
 ```{r}
 mean_range <- function(df) {
   # reurnt the mean values of chea column 
@@ -39,7 +39,9 @@ mean_range <- function(df) {
 
 mean_range(df = mtcars)
 ```
+
 Write some unit tests! for your function
+
 ```{r}
 ##| include: false <- hid unit test code
 
@@ -56,6 +58,9 @@ expect_true(mean_range(mtcars)[1] < mean_range(mtcars)[2])
 ```
 
 ## Practice sourcing functions
+
+Custome function example
+
 ```{r}
 # Source our food cart functions
 source(here::here("src", "food_cart_functions.R"))
@@ -65,3 +70,13 @@ name_cart(food = "strawberry", animal = "marmot")
 
 ```
 
+Practice with an existing function
+
+```{r}
+# Source cork oak function
+# source(here::here("path", "to", "script.R"))
+source(here::here("src", "cork_oak_growth.R"))
+
+# call function
+height_t2(3, 1, 5)
+```
