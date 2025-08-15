@@ -43,25 +43,29 @@ Add line-by-line comments wheres prompted in the code below, explaining what eac
 # ------ WHAT HAPPENS HERE? ------ #
 # ------ comment line-by-line ---- #
 
-# The line below...
+# The line below... created a time series to estimate Popu size
 time_yr <- seq(from = 0, to = 8, by = 1)
 
-# The line below...
+# The line below... Create empty matrix to store population sizes. 
+#its getting columns with fish stage and rows with their time point and the value inputted will be Pop size
 proj_year <- matrix(ncol = length(fish_year0), nrow = length(time_yr))
 
-# The line below...
+# The line below... makes first row initial pop metrics, popu first row with year 0
 proj_year[1, ] <- fish_year0
 
-# The for loop below...
-for (i in 2:length(time_yr)) {
+# The for loop below...estimate population size for each year based on popul size in the previous year
+for (i in 2:length(time_yr)) { #star at year 1 and beyond
   proj_year[i,] <- fish_leslie %*% proj_year[i-1,]
 }
 
 
 # The rest is wrangling & visualization (run to check it out):
+#updating column names for population stages
 colnames(proj_year) <- c("eggs", "fry", "juvenile", "adult")
 
+# convert to a data frame
 proj_df <- data.frame(time_yr, proj_year) %>% 
+  # converts format wide to long
   pivot_longer(cols = -time_yr, names_to = "lifestage", values_to = "stage_population")
 
 ggplot(data = proj_df, aes(x = time_yr, y = stage_population)) +
